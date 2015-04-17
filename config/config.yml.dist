@@ -7,3 +7,5 @@ parameters:
     url-pattern: ''
     # Path to the directory where the sites are deployed. Can also use {base_directory}.
     sites-directory: ''
+    # SSH private key to use when connecting to the git repositories
+    git-private-key: ''

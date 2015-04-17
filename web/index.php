@@ -28,7 +28,8 @@ $app['git'] = $app->share(
     function () use ($configuration) {
         return new \Netdudes\Branchio\Git(
             $configuration->get('git-directory'),
-            $configuration->get('git-remote')
+            $configuration->get('git-remote'),
+            $configuration->get('git-private-key')
         );
     }
 );

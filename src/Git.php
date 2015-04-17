@@ -28,9 +28,12 @@ class Git {
      * @param $repositoryPath
      * @param $remoteName
      */
-    public function __construct($repositoryPath, $remoteName)
+    public function __construct($repositoryPath, $remoteName, $sshPrivateKey = null)
     {
         $gitClient = new GitWrapper();
+        if ($sshPrivateKey) {
+            $gitClient = $gitClient->setPrivateKey($sshPrivateKey);
+        }
         $this->workingCopy = $gitClient->workingCopy($repositoryPath);
         $this->repositoryPath = $repositoryPath;
         $this->remoteName = $remoteName;

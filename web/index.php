@@ -40,9 +40,9 @@ $app['url_builder'] = $app->share(
         );
     }
 );
-$app['directories'] = $app->share(
+$app['sites'] = $app->share(
     function () use ($configuration) {
-        return new \Netdudes\Branchio\Directories(
+        return new \Netdudes\Branchio\Sites(
             $configuration->get('sites-directory')
         );
     }

@@ -3,7 +3,8 @@
     "silex/silex": "~1.2",
     "cpliakas/git-wrapper": "dev-master",
     "twig/twig": "dev-master",
-    "symfony/yaml": "dev-master"
+    "symfony/yaml": "dev-master",
+    "symfony/console": "dev-master"
   },
   "autoload": {
     "psr-4": {

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8472691d257db0a3ac154cbf6b15c590",
+    "hash": "2ec7d96e3dd50ed1cf17617e2150691f",
     "packages": [
         {
             "name": "cpliakas/git-wrapper",
@@ -226,6 +226,64 @@
                 "microframework"
             ],
             "time": "2015-04-11 12:43:27"
+        },
+        {
+            "name": "symfony/console",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "ced62c8a41bfbfecffda7f7808e04b7b514733a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/ced62c8a41bfbfecffda7f7808e04b7b514733a0",
+                "reference": "ced62c8a41bfbfecffda7f7808e04b7b514733a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/event-dispatcher": "~2.8|~3.0",
+                "symfony/phpunit-bridge": "~2.8|~3.0",
+                "symfony/process": "~2.8|~3.0"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-04-10 07:31:54"
         },
         {
             "name": "symfony/debug",
@@ -712,7 +770,8 @@
     "stability-flags": {
         "cpliakas/git-wrapper": 20,
         "twig/twig": 20,
-        "symfony/yaml": 20
+        "symfony/yaml": 20,
+        "symfony/console": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

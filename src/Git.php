@@ -1,9 +1,11 @@
 <?php
 namespace Netdudes\Branchio;
 
+use GitWrapper\GitException;
 use GitWrapper\GitWrapper;
 
-class Git {
+class Git
+{
 
     private static $blacklistBranches = [
         '/.*HEAD.*\-\>.*/'
@@ -40,13 +42,33 @@ class Git {
     }
 
     /**
+     * @param $branch
+     * @param $directory
+     *
+     * @throws \Exception
+     */
+    public function cloneSite($branch, $directory)
+    {
+        $this->refresh();
+        if (!$this->branchIsValid($branch)) {
+            throw new \Exception("Invalid branch");
+        }
+
+        $gitClient = new GitWrapper();
+        $workingCopy = $gitClient->cloneRepository($this->getRemoteUrl(), $directory);
+        $workingCopy->checkout($branch, ['t' => true]);
+    }
+
+    /**
      * Get all the remote branches
+     *
      * @return array
      */
     public function getBranches()
     {
         $branches = $this->workingCopy->getBranches()->remote();
-        $branchesInThisRemote = array_filter(
+
+        return array_filter(
             $branches,
             function ($branch) {
                 if (strpos($branch, $this->remoteName . '/') !== 0) {
@@ -62,17 +84,16 @@ class Git {
                 return $branch;
             }
         );
+    }
 
-        return array_map(
-            function($branch) {
-                // Remove the origin/ part
-                $branch = implode('/', array_slice(explode('/', $branch), 1));
-                // Replace slashes with dashes
-                $branch = str_replace('/', '-', $branch);
-                return $branch;
-            },
-            $branchesInThisRemote
-        );
+    /**
+     * @param $branch
+     *
+     * @return bool
+     */
+    public function branchIsValid($branch)
+    {
+        return in_array($branch, $this->getBranches());
     }
 
     /**
@@ -82,5 +103,57 @@ class Git {
     {
         $this->workingCopy->fetch($this->remoteName);
         $this->workingCopy->remote('prune', 'origin');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getRemoteUrl()
+    {
+        $remotes = $this->workingCopy->remote('-v')->getOutput();
+
+        $remotes = array_map(
+            function ($line) {
+                $parts = preg_split('/\s+/', $line);
+
+                return [$parts[0], $parts[1]];
+            },
+            explode("\n", $remotes)
+        );
+
+        $remotes = array_filter(
+            $remotes,
+            function ($line) {
+                return $line[0] == $this->remoteName;
+            }
+        );
+
+        $remotes = array_map(
+            function ($line) {
+                return $line[1];
+            },
+            $remotes
+        );
+
+        if (!count($remotes)) {
+            throw new \Exception("No remote found");
+        }
+
+        return $remotes[0];
+    }
+
+    /**
+     * @param $branch
+     *
+     * @return mixed
+     */
+    public function buildBranchReadableName($branch)
+    {
+        // Remove the origin/ part
+        $branch = implode('/', array_slice(explode('/', $branch), 1));
+
+        // Replace slashes with dashes
+        return str_replace('/', '-', $branch);
     }
 }

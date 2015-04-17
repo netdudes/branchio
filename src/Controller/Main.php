@@ -18,15 +18,20 @@ class Main
      */
     public function listAction(Request $request, Application $app)
     {
+        $branches = array_map(
+            [$app['git'], 'buildBranchReadableName'],
+            $app['git']->getBranches()
+        );
+
         $table = array_map(
             function ($branch) use ($app) {
                 return [
                     'branch' => $branch,
-                    'directory_exists' => $app['directories']->directoryExistsForBranch($branch),
+                    'directory_exists' => $app['sites']->siteExistsForBranch($branch),
                     'url' => $app['url_builder']->buildUrlForBranch($branch)
                 ];
             },
-            $app['git']->getBranches()
+            $branches
         );
 
         return $app['twig']->render(
@@ -45,7 +50,8 @@ class Main
      */
     public function refreshAction(Request $request, Application $app)
     {
-        $app['git']->refresh();
+        $app['git']->getRemoteUrl();
+
         return $app->redirect('/');
     }
 }

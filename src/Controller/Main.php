@@ -50,8 +50,7 @@ class Main
      */
     public function refreshAction(Request $request, Application $app)
     {
-        $app['git']->getRemoteUrl();
-
+        $app['git']->refresh();
         return $app->redirect('/');
     }
 }

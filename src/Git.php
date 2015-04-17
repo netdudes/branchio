@@ -56,7 +56,7 @@ class Git
 
         $gitClient = new GitWrapper();
         $workingCopy = $gitClient->cloneRepository($this->getRemoteUrl(), $directory);
-        $workingCopy->checkout($branch, ['t' => true]);
+        $workingCopy->checkout($this->remoteName . '/' . $branch, ['t' => true]);
     }
 
     /**
@@ -68,7 +68,7 @@ class Git
     {
         $branches = $this->workingCopy->getBranches()->remote();
 
-        return array_filter(
+        $branches = array_filter(
             $branches,
             function ($branch) {
                 if (strpos($branch, $this->remoteName . '/') !== 0) {
@@ -83,6 +83,13 @@ class Git
 
                 return $branch;
             }
+        );
+
+        return array_map(
+            function($branch) {
+                return implode('/', array_slice(explode('/', $branch), 1));
+            },
+            $branches
         );
     }
 
@@ -150,9 +157,6 @@ class Git
      */
     public function buildBranchReadableName($branch)
     {
-        // Remove the origin/ part
-        $branch = implode('/', array_slice(explode('/', $branch), 1));
-
         // Replace slashes with dashes
         return str_replace('/', '-', $branch);
     }

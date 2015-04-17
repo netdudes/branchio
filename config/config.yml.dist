@@ -1,0 +1,9 @@
+parameters:
+    # Path to the directory with a working repo of the project. Can use {base_directory} to reference the root of branchio.
+    git-directory: ''
+    # Remote name
+    git-remote: 'origin'
+    # Pattern to generate the urls. The placeholder {branch} will be replaced with the branch name.
+    url-pattern: ''
+    # Path to the directory where the sites are deployed. Can also use {base_directory}.
+    sites-directory: ''

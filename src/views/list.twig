@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <style>
+            body, .branches-list {
+                font-family: sans-serif;
+                font-size: .9em;
+                color: #1a1a1a;
+                text-align: center;
+            }
+            .branches-list {
+                display: inline-block;
+                padding: 12px;
+                text-align: left;
+            }
+            .branches-list td {
+                padding: 2px 4px;
+                border-bottom: 1px solid #ebebeb;
+            }
+            .fetch {
+                color: green;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="/refresh" class="fetch">Fetch &#8635;</a>
+
+        <table class="branches-list">
+            <thead>
+                <tr>
+                    <th>Branch</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table %}
+                    <tr>
+                        <td>
+                            {% if row.directory_exists %}
+                                <a href="{{ row.url }}">{{ row.branch }}</a>
+                            {% else %}
+                                {{ row.branch }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
+
+

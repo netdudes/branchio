@@ -1,0 +1,13 @@
+{
+  "require": {
+    "silex/silex": "~1.2",
+    "cpliakas/git-wrapper": "dev-master",
+    "twig/twig": "dev-master",
+    "symfony/yaml": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Netdudes\\Branchio\\": "src/"
+    }
+  }
+}

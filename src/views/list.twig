@@ -6,24 +6,48 @@
                 font-size: .9em;
                 color: #1a1a1a;
                 text-align: center;
+                margin:0;
             }
             .branches-list {
                 display: inline-block;
                 padding: 12px;
                 text-align: left;
+                padding-top: 50px;
             }
             .branches-list td {
                 padding: 2px 4px;
                 border-bottom: 1px solid #ebebeb;
             }
+            .toolbar {
+                text-align: right;
+                position: fixed;
+                height: 24px;
+                line-height: 24px;
+                font-size: 16px;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0  ;
+                background: #f4f4f4;
+                border-bottom: 1px solid #7f7f7f;
+            }
+            .toolbar a {
+                height: 23px;
+                display: inline-block;
+                padding: 0 6px;
+                text-decoration: none;
+            }
+            .toolbar a:hover {
+                background: #e6e6e6;
+            }
             .fetch {
-                color: green;
-                font-weight: bold;
+                color: #2b83d7;
             }
         </style>
     </head>
     <body>
-        <a href="/refresh" class="fetch">Fetch &#8635;</a>
+        <aside class="toolbar">
+            <a href="/refresh" class="fetch">Prune &#8635;</a>
+        </aside>
 
         <table class="branches-list">
             <thead>

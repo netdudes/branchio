@@ -27,8 +27,14 @@ class Git
     private $repositoryPath;
 
     /**
-     * @param $repositoryPath
-     * @param $remoteName
+     * @var null
+     */
+    private $sshPrivateKey;
+
+    /**
+     * @param      $repositoryPath
+     * @param      $remoteName
+     * @param null $sshPrivateKey
      */
     public function __construct($repositoryPath, $remoteName, $sshPrivateKey = null)
     {
@@ -39,6 +45,7 @@ class Git
         $this->workingCopy = $gitClient->workingCopy($repositoryPath);
         $this->repositoryPath = $repositoryPath;
         $this->remoteName = $remoteName;
+        $this->sshPrivateKey = $sshPrivateKey;
     }
 
     /**
@@ -55,6 +62,9 @@ class Git
         }
 
         $gitClient = new GitWrapper();
+        if ($this->sshPrivateKey) {
+            $gitClient = $gitClient->setPrivateKey($this->sshPrivateKey);
+        }
         $workingCopy = $gitClient->cloneRepository($this->getRemoteUrl(), $directory);
         $workingCopy->checkout($this->remoteName . '/' . $branch, ['t' => true]);
     }
